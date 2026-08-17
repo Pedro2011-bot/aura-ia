@@ -1,0 +1,1 @@
+FROM python:3.11-slim\n\nWORKDIR /app\n\nRUN apt-get update && apt-get install -y \\\n    curl \\\n    && rm -rf /var/lib/apt/lists/*\n\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\n\nCOPY . .\n\nENV FLASK_APP=api_server.py\nENV PYTHONUNBUFFERED=1\n\nEXPOSE 5000\n\nCMD [\"python\", \"api_server.py\"]
